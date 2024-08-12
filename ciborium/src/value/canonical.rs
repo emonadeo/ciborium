@@ -46,6 +46,8 @@ pub fn cmp_value(v1: &Value, v2: &Value) -> Ordering {
             Ordering::Equal => s.cmp(o),
             x => x,
         },
+        (Bool(s), Bool(o)) => s.cmp(o),
+        (Null, Null) => Ordering::Equal,
         (Tag(t, v), Tag(ot, ov)) => match Value::from(*t).partial_cmp(&Value::from(*ot)) {
             Some(Ordering::Equal) | None => match v.partial_cmp(ov) {
                 Some(x) => x,
