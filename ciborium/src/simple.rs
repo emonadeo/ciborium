@@ -27,7 +27,8 @@ where
     #[inline]
     fn deserialize_any<V: de::Visitor<'de>>(self, visitor: V) -> Result<V::Value, Self::Error> {
         let offset = self.decoder.offset();
-        let Header::Simple(simple) = self.decoder.pull()? else{
+
+        let Header::Simple(simple) = self.decoder.pull()? else {
                 return Err(crate::de::Error::semantic(offset, "expected simple"));
             };
         visitor.visit_u8(simple)

@@ -212,7 +212,7 @@ where
 
             Header::Simple(simple::FALSE) => self.deserialize_bool(visitor),
             Header::Simple(simple::TRUE) => self.deserialize_bool(visitor),
-            Header::Simple(simple::NULL) => visitor.visit_none(),
+            Header::Simple(simple::NULL) => self.deserialize_option(visitor),
             Header::Simple(_) => self.recurse(|me| {
                 let mut simple_de =
                     crate::simple::SimpleDeserializer::<_, Self>::new(&mut me.decoder);
